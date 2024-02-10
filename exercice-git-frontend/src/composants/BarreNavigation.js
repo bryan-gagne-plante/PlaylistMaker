@@ -12,6 +12,7 @@ export const BarreNavigation = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Accueil</Nav.Link>
                         <Nav.Link href="/admin">PageAdmin</Nav.Link>
+                        <Nav.Link href="/creer">PageCreer</Nav.Link>
                         {/* exemple d'utilisation : <Nav.Link href="/test-navigation">Albums</Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
