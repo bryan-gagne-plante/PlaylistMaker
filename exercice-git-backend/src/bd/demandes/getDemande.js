@@ -1,14 +1,6 @@
 import {utiliserDB} from "../connection";
 import {ObjectId} from 'mongodb';
 
-// shema de "demandes"
-// {
-//   "nomClient": "string",
-//   "chansons": ["string"],
-//   "dateDemande": "YYYY-MM-DD",
-//   "actif": "boolean"
-// }
-
 export function getDemande(req, res) {
     const id = req.params.id;
 
