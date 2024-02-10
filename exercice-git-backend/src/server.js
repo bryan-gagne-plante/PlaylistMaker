@@ -1,92 +1,116 @@
 import express from 'express';
-// import { MongoClient } from 'mongodb';
+import {MongoClient, ObjectId} from 'mongodb';
 
 const app = express();
-// app.use(express.json());
+app.use(express.json());
 
-let repertoire = [
-    { "id": 1, "titre": "My life", "artiste": "DJ NoName", "categorie": "Électronica" },
-    { "id": 2, "titre": "Growing Up", "artiste": "A.L.E.X", "categorie": "LoFi" },
-    { "id": 3, "titre": "Cities Of The Future", "artiste": "Infected Mushroom", "categorie": "Électronica" },
-    { "id": 4, "titre": "Gamma Goblins", "artiste": "Infected Mushroom", "categorie": "Électronica" },
-    { "id": 5, "titre": "Hard days", "artiste": "Loupol", "categorie": "Rock" },
-    { "id": 6, "titre": "Money", "artiste": "Pink Floyd", "categorie": "Rock" },
-    { "id": 7, "titre": "Betrayal", "artiste": "Céline Dion", "categorie": "Pop" },
-    { "id": 8, "titre": "Goes On", "artiste": "Céline Dion", "categorie": "Soft" },
-    { "id": 9, "titre": "Sad World", "artiste": "Céline Dion", "categorie": "Variété française" },
-    { "id": 10, "titre": "Red flowers", "artiste": "Hipster2.0", "categorie": "Emo" },
-    { "id": 11, "titre": "Loser", "artiste": "Hipster2.0", "categorie": "Emo" },
-    { "id": 12, "titre": "Sunny", "artiste": "The Good Band", "categorie": "Pop" },
-    { "id": 13, "titre": "My Girl", "artiste": "Motown", "categorie": "Soul" },
-    { "id": 14, "titre": "Strawberry Letter 23", "artiste": "The Brothers Johnson", "categorie": "Soul" },
-    { "id": 15, "titre": "Stomp!", "artiste": "The Brothers Johnson", "categorie": "Soul" }
-  ]
+// MONGODB SHEMATIC
+// {
+//     "titre": "nom de la piece",
+//     "artiste": "L'auteur de la piece",
+//     "categorie": "La categorie de la piece"
+// }
 
-// const utiliserDB = async (operations, reponse) => {
-//     try {
-//         // Connection au client Mongo
-//         const client = await MongoClient.connect('mongodb://localhost:27017');
-//         // Connection à la base de données
-//         const db = client.db('repertoire');
-
-//         // Exécution des opérations demandées
-//         await operations(db);
-
-//         // Fermeture de la connexion
-//         client.close();
-//     } catch (err) {
-//         reponse.status(500).send('Erreur de connexion à la BD', err);
-//     }
-
-app.get('/hello', (req, res) => res.send('Salut tout le monde!'));
+const utiliserDB = async (operations, reponse) => {
+    try {
+        const client = await MongoClient.connect('mongodb://localhost:27017');
+        const db = client.db('repertoire');
+        await operations(db);
+        client.close();
+    } catch (err) {
+        reponse.status(500).send('Erreur de connexion a la BD', err);
+    }
+};
 
 // GET /api/pieces
-app.get('api/pieces', async (req, res) => {
-    res.status(200).json(repertoire); // Solution temporaire
+app.get('/api/pieces', async (req, res) => {
+    utiliserDB(async (db) => {
+        const pieces = await db.collection('pieces').find().toArray();
+
+        // Je ne retourne pas un erreur 404 si la liste est vide
+        // car ce n'est pas une erreur, c'est juste que le dataset est vide
+        res.status(200).json(pieces);
+    }, res);
 });
 
-// GET /api/pieces/:id
-app.get('api/pieces/:id', async (req, res) => {
-    const { id } = req.params;
+// GET /api/pieces/:id - Assuming ID is a string
+app.get('/api/pieces/:id', async (req, res) => {
+    utiliserDB(async (db) => {
+        const id = req.params.id;
 
-    const piece = repertoire.find(piece => piece.id === id);
-    res.status(200).json(piece); // Solution temporaire
+        // Directly using the string ID for lookup
+        const piece = await db.collection('pieces').findOne({_id: new ObjectId(id)});
+        if (piece) {
+            res.status(200).json(piece);
+        } else {
+            res.status(404).send('Aucune pièce trouvée avec l\'ID : ' + id);
+        }
+    }, res).catch(() => {
+        res.status(500).send('Erreur lors de la recherche de la pièce');
+    });
 });
 
 // POST /api/pieces/ajouter
-app.post('api/pieces/ajouter', async (req, res) => {
-    const piece = req.body;
+app.post('/api/pieces/ajouter', async (req, res) => {
+    const {titre, artiste, categorie} = req.body;
 
-    repertoire.push(piece);
-    res.status(200).json(repertoire); // Solution temporaire
+    if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
+        utiliserDB(async (db) => {
+            await db.collection('pieces').insertOne({
+                titre: titre,
+                artiste: artiste,
+                categorie: categorie
+            });
+
+            res.status(200).send('Pièce ajoutee');
+        }, res).catch(
+            () => res.status(500).send('Erreur : piece non ajoutee')
+        );
+    } else {
+        res.status(500).send('Erreur : parametre manquant');
+    }
 });
 
 // PUT /api/pieces/:id/modifier
-app.put('api/pieces/:id/modifier', async (req, res) => {
-    const { id } = req.params;
-    const piece = req.body;
+app.put('/api/pieces/:id/modifier', async (req, res) => {
+    const {id} = req.params;
+    const {titre, artiste, categorie} = req.body;
 
-    repertoire = repertoire.map(p => p.id === id ? piece : p);
-    res.status(200).json(repertoire); // Solution temporaire
+    if (titre !== undefined && artiste !== undefined && categorie !== undefined) {
+        utiliserDB(async (db) => {
+            await db.collection('pieces').updateOne({_id: new ObjectId(id)}, {
+                '$set': {
+                    titre: titre,
+                    artiste: artiste,
+                    categorie: categorie
+                }
+            });
 
+            const pieceMAJ = await db.collection('pieces').findOne({_id: new ObjectId(id)});
+            res.status(200).json(pieceMAJ);
+        }, res).catch(
+            () => res.status(500).send('Erreur : piece non modifiee')
+        );
+    } else {
+        res.status(500).send('Erreur : parametre manquant');
+    }
 });
 
 // DELETE /api/pieces/:id/supprimer
-app.delete('api/pieces/:id/supprimer', async (req, res) => {
-    const { id } = req.params;
+app.delete('/api/pieces/:id/supprimer', async (req, res) => {
+    const {id} = req.params;
 
-    // utiliserDB(async (db) => {
-    //     try {
-    //         await db.collection('pieces').deleteOne({ id: id });
-    //         res.status(204).send();
-    //     } catch (err) {
-    //         res.status(500).send('Erreur lors de la suppression de la pièce', err);
-    //     }
-    // }, res);
+    utiliserDB(async (db) => {
+        const resultat = await db.collection('pieces').deleteOne({_id: new ObjectId(id)});
 
-    repertoire = repertoire.filter(p => p.id !== id);
-    res.status(204); // Solution temporaire
+        if (resultat.deletedCount === 1) {
+            res.status(200).send('Piece supprimee');
+        } else {
+            res.status(500).send('Erreur : piece non supprimee');
+        }
+    }, res).catch(
+        () => res.status(500).send('Erreur : piece non supprimee')
+    );
 });
-
 
 app.listen(8000, () => console.log('Ecoute sur le port 8000'));
