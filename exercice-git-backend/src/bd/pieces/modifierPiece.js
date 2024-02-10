@@ -1,5 +1,5 @@
-import {utiliserDB} from "./connection";
-import { ObjectId } from 'mongodb';
+import {utiliserDB} from "../connection";
+import {ObjectId} from 'mongodb';
 
 export function modifierPiece(req, res) {
     const {id} = req.params;

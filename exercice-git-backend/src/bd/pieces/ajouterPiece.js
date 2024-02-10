@@ -1,4 +1,4 @@
-import {utiliserDB} from "./connection";
+import {utiliserDB} from "../connection";
 
 export function ajouterPiece(req, res) {
     const {titre, artiste, categorie} = req.body;

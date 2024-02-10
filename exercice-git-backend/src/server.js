@@ -1,10 +1,10 @@
 import express from 'express';
 
-import {getPieces} from './bd/getPieces.js';
-import {getPiece} from './bd/getPiece.js';
-import {ajouterPiece} from './bd/ajouterPiece.js';
-import {modifierPiece} from './bd/modifierPiece.js';
-import {supprimerPiece} from './bd/supprimerPiece.js';
+import {getPieces} from './bd/pieces/getPieces.js';
+import {getPiece} from './bd/pieces/getPiece.js';
+import {ajouterPiece} from './bd/pieces/ajouterPiece.js';
+import {modifierPiece} from './bd/pieces/modifierPiece.js';
+import {supprimerPiece} from './bd/pieces/supprimerPiece.js';
 
 const app = express();
 app.use(express.json());

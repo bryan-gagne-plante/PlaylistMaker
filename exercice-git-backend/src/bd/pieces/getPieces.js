@@ -1,4 +1,4 @@
-import {utiliserDB} from "./connection";
+import {utiliserDB} from "../connection";
 
 export const getPieces = async (req, res) => {
     await utiliserDB(async (db) => {
