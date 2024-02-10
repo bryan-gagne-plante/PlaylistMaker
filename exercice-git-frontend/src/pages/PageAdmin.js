@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { repertoire } from "../repertoire.js";
 
 export const PageAdmin = () => {
@@ -16,30 +17,47 @@ export const PageAdmin = () => {
     }
     
     const SupprimerChanson = (chanson) => {
-        repertoires.splice(repertoires.indexOf(chanson), 1);
-    }
-    
-    const modifierChanson = (chanson) => {
-        repertoires.splice(repertoires.indexOf(chanson), 1);
+        setRepertoir(repertoires.filter(item => item !== chanson));
     }
 
     return (
-        <div>
-          {Object.keys(trierParCategories()).map(categorie => (
-            <div key={categorie}>
-              <h2>{categorie}</h2>
-              <ul>
-                {trierParCategories()[categorie].map((item, index) => (
-                  <li key={index}>
-                    <strong>Titre:</strong> {item.titre}, <strong>Artiste:</strong> {item.artiste}
-                    <Button variant="danger" onClick={() => SupprimerChanson(item)}>Supprimer </Button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <Container>
+            <h1>Page Admin</h1>
+            <Row>
+                <Col>
+                    <h3>Titre</h3> 
+                </Col>
+                <Col>
+                    <h3>Artiste</h3>
+                </Col>
+                <Col>
+                    <h3>Supprimer</h3>
+                </Col>
+                <Col>
+                    <h3>Modifier</h3>
+                </Col>
+            </Row>
+            {Object.keys(trierParCategories()).map(categorie => (
+                <Row key={categorie}>
+                    <h2>{categorie}</h2>
+                        {trierParCategories()[categorie].map((item, index) => (
+                            <Row key={index}>
+                                <Col>
+                                    {item.titre}
+                                </Col>
+                                <Col>
+                                    {item.artiste}
+                                </Col>
+                                <Col>
+                                    <Button variant="danger" onClick={() => SupprimerChanson(item)}>Supprimer </Button>
+                                </Col>
+                                <Col>
+                                    <Button variant="warning" as={Link} to={"/modifier"} state={item}>Modifier</Button>
+                                </Col>
+                            </Row>
+                        ))}
+                </Row>
+            ))}
+        </Container>
     );
 };
-
-
