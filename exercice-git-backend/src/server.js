@@ -8,7 +8,7 @@ import {supprimerPiece} from './bd/pieces/supprimerPiece.js';
 
 import {getDemandes} from './bd/demandes/getDemandes.js';
 import {getDemande} from './bd/demandes/getDemande.js';
-// import {ajouterDemande} from './bd/demandes/ajouterDemande.js';
+import {ajouteDemande} from './bd/demandes/ajouteDemande.js';
 // import {modifierDemande} from './bd/demandes/modifierDemande.js';
 // import {supprimerDemande} from './bd/demandes/supprimerDemande.js';
 
@@ -25,7 +25,7 @@ app.delete('/api/pieces/:id/supprimer', supprimerPiece);
 // DEMANDES
 app.get('/api/demandes', getDemandes);
 app.get('/api/demandes/:id', getDemande);
-// app.post('/api/demandes/ajouter', ajouterDemande);
+app.post('/api/demandes/ajouter', ajouteDemande);
 // app.put('/api/demandes/:id/modifier', modifierDemande);
 // app.delete('/api/demandes/:id/supprimer', supprimerDemande);
 
