@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { BarreNavigation } from "./composants/BarreNavigation";
 import { PageAccueil } from "./pages/PageAccueil";
 import { PageAdmin } from "./pages/PageAdmin";
+import { PageClient } from "./pages/PageClient";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<PageAccueil/>}/>
                     <Route path="/admin" element={<PageAdmin/>}/>
+                    <Route path="/client" element={<PageClient/>}/>
                     { /* exemple d'utilisation : <Route path={"/test-navigation"} element={<NavigationTest/>}/>*/ }
                 </Routes>
             </Container>
