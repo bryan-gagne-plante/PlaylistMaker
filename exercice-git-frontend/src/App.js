@@ -8,6 +8,7 @@ import { PageAdmin } from "./pages/PageAdmin";
 import { PageCreer } from "./pages/PageCreer";
 import { PageModifier } from "./pages/PageModifier";
 
+
 function App() {
     return (
         <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/admin" element={<PageAdmin/>}/>
                     <Route path="/modifier" element={<PageModifier/>}/>
                     <Route path="/creer" element={<PageCreer/>}/>
+
                     { /* exemple d'utilisation : <Route path={"/test-navigation"} element={<NavigationTest/>}/>*/ }
                 </Routes>
             </Container>
