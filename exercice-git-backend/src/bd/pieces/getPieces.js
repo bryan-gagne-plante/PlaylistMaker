@@ -7,5 +7,7 @@ export const getPieces = async (req, res) => {
         // Je ne retourne pas un erreur 404 si la liste est vide
         // car ce n'est pas une erreur, c'est juste que le dataset est vide
         res.status(200).json(pieces);
-    }, res);
+    }, res).catch(() => {
+        res.status(500).send('Erreur lors de la recherche des pièces');
+    });
 }
