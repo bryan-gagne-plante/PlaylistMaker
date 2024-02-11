@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Container} from "react-bootstrap";
 
 export const ListeCategories = ({setCategorieSelectionnee, categorieSelectionnee}) => {
     const [categories, setCategories] = useState([]);
@@ -9,35 +8,36 @@ export const ListeCategories = ({setCategorieSelectionnee, categorieSelectionnee
             try {
                 const reponse = await fetch('/api/pieces/');
                 if (!reponse.ok) {
-                    console.error(reponse);
+                    throw new Error(reponse);
                 }
                 const donnees = await reponse.json();
                 const categories = donnees.map((piece) => piece.categorie);
                 const categoriesUniques = Array.from(new Set(categories));
                 setCategories(categoriesUniques);
+                console.log("Chargement des categories reussi");
             } catch (err) {
                 console.error(err);
             }
         };
+
         chargerCategories();
     }, []);
 
     const handleCategorieClick = (categorie) => {
-        console.log('Avant: ', categorieSelectionnee); // Log avant la mise à jour
         if (categorieSelectionnee === categorie) {
-            console.log('Categorie déselectionnée');
+            console.log('Categorie ' + categorie + ' déselectionnee');
             setCategorieSelectionnee(null);
         } else {
-            console.log('Categorie sélectionnée : ' + categorie);
+            console.log('Categorie sélectionnee : ' + categorie);
             setCategorieSelectionnee(categorie);
         }
-        console.log('Après: ', categorieSelectionnee); // Ce log s'exécutera avant la mise à jour réelle de l'état
     };
 
 
     return (
         <>
-            <h1>Liste des catégories disponible</h1>
+            <br/>
+            <h3>Liste des categories disponible</h3>
             <div style={{display: "flex", flexWrap: "wrap", gap: "10px"}}>
                 {categories.map((categorie) => (
                     <div
@@ -48,11 +48,14 @@ export const ListeCategories = ({setCategorieSelectionnee, categorieSelectionnee
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            border: "1px solid #ccc",
+                            textAlign: "center",
+                            border: "1px solid black",
                             cursor: 'pointer',
-                            backgroundColor: categorieSelectionnee === categorie ? "#007bff" : "#f8f9fa",
-                            color: categorieSelectionnee === categorie ? "white" : "black",
-                            borderRadius: "5px", // Ajouté pour un peu de style
+                            backgroundColor:
+                                categorieSelectionnee === categorie ? "#3193ff" : "#f3f3f3",
+                            color:
+                                categorieSelectionnee === categorie ? "white" : "black",
+                            borderRadius: "5px",
                         }}
                         onClick={() => handleCategorieClick(categorie)}
                     >
