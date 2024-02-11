@@ -10,7 +10,7 @@ import {getDemandes} from './bd/demandes/getDemandes.js';
 import {getDemande} from './bd/demandes/getDemande.js';
 import {ajouteDemande} from './bd/demandes/ajouteDemande.js';
 // import {modifierDemande} from './bd/demandes/modifierDemande.js';
-// import {supprimerDemande} from './bd/demandes/supprimerDemande.js';
+import {supprimerDemande} from './bd/demandes/supprimerDemande.js';
 
 const app = express();
 app.use(express.json());
@@ -27,6 +27,6 @@ app.get('/api/demandes', getDemandes);
 app.get('/api/demandes/:id', getDemande);
 app.post('/api/demandes/ajouter', ajouteDemande);
 // app.put('/api/demandes/:id/modifier', modifierDemande);
-// app.delete('/api/demandes/:id/supprimer', supprimerDemande);
+app.delete('/api/demandes/:id/supprimer', supprimerDemande);
 
 app.listen(8000, () => console.log('Ecoute sur le port 8000'));
