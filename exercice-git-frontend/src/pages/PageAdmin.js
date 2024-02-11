@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { repertoire } from "../repertoire.js";
 
-export const PageAdmin = () => {
-    const [repertoires, setRepertoir] = useState(repertoire);
+export const PageAdmin = () => {   
+    const [repertoires, setRepertoir] = useState([]);
+    useEffect(() => {
+        const chargerChansons = async () => {
+            try {
+                const response = await fetch(`/api/pieces/`);
+                if (!response.ok) {
+                    console.error(response);
+                }
+                const donnees = await response.json();
+
+                setRepertoir(donnees);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        chargerChansons();
+    });
     const trierParCategories = () => {
         const repertoireTri = {};
         repertoires.forEach(item => {
@@ -16,8 +31,17 @@ export const PageAdmin = () => {
         return repertoireTri;
     }
     
-    const SupprimerChanson = (chanson) => {
-        setRepertoir(repertoires.filter(item => item !== chanson));
+    const SupprimerChanson = async (chanson) => {
+        try {
+            const response = await fetch(`/api/pieces/${chanson._id}/supprimer`, {
+                method: "DELETE"
+            });
+            if (!response.ok) {
+                console.error(response);
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return (
