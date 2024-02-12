@@ -1,41 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import { DemandeSpecialActive } from '../composants/Admin/DemandeSpecialActive';
+import { Top5PieceDemande } from '../composants/Admin/Top5PieceDemande';
+import { TouteLesDemandeSpecial } from '../composants/Admin/TouteLesDemandeSpecial';
 
 export const PageDemandeSpecial = () => {
-    const [demandeSpeciale, setDemandeSpeciale] = useState([]);
-    useEffect(() => {
-        const chargerDemandeSpeciale = async () => {
-            try {
-                const response = await fetch(`/api/pieces/demandeSpeciale`);
-                if (!response.ok) {
-                    console.error(response);
-                }
-                const donnees = await response.json();
-
-                setDemandeSpeciale(donnees);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        chargerDemandeSpeciale();
-    });
-    return (
-        <Container>
-            <h1>Demande spéciale</h1>
-            <Row>
-                <Col>
-                    <h3>Titre</h3> 
-                </Col>
-                <Col>
-                    <h3>Artiste</h3>
-                </Col>
-                <Col>
-                    <h3>Supprimer</h3>
-                </Col>
-                <Col>
-                    <h3>Modifier</h3>
-                </Col>
-            </Row>
-        </Container>
-    );
+  return (
+    <Tabs
+      defaultActiveKey="All"
+      id="toutesLesDemandesSpeciales"
+      className="mb-3"
+    >
+        <Tab eventKey="All" title="All">
+            <TouteLesDemandeSpecial />
+        </Tab>
+        <Tab eventKey="Active" title="Active">
+            <DemandeSpecialActive />
+        </Tab>
+        <Tab eventKey="Top5" title="Top5">
+            <Top5PieceDemande />
+        </Tab>
+    </Tabs>
+  );
 }
