@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {ListGroup, Form, Dropdown, InputGroup, Button} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 export const ListeChansons = ({
                                   categorieSelectionnee,
@@ -7,6 +8,7 @@ export const ListeChansons = ({
                                   retirerDeDemandesSpeciales,
                                   chansonsDemandees
                               }) => {
+    const {t} = useTranslation();
     const [chansons, setChansons] = useState([]);
     const [filtre, setFiltre] = useState("");
     const [critereTri, setCritereTri] = useState("titre");
@@ -69,33 +71,33 @@ export const ListeChansons = ({
                             backgroundColor: "#3193ff"
                         }}
                     >
-                        Trier
+                        {t('ListeChansons-Trier')}
                     </Dropdown.Toggle>
                     <Dropdown.Menu> {/* https://react-bootstrap.netlify.app/docs/components/dropdowns/ */}
                         <Dropdown.Item onClick={() => {
                             setCritereTri("titre");
                             setOrdreTri("asc");
-                        }}>Titre - Asc</Dropdown.Item>
+                        }}>{t('ListeChansons-TitreAsc')}</Dropdown.Item>
                         <Dropdown.Item onClick={() => {
                             setCritereTri("titre");
                             setOrdreTri("desc");
-                        }}>Titre - Desc</Dropdown.Item>
+                        }}>{t('ListeChansons-TitreDesc')}</Dropdown.Item>
                         <Dropdown.Item onClick={() => {
                             setCritereTri("artiste");
                             setOrdreTri("asc");
-                        }}>Artiste - Asc</Dropdown.Item>
+                        }}>{t('ListeChansons-ArtisteAsc')}</Dropdown.Item>
                         <Dropdown.Item onClick={() => {
                             setCritereTri("artiste");
                             setOrdreTri("desc");
-                        }}>Artiste - Desc</Dropdown.Item>
+                        }}>{t('ListeChansons-ArtisteDesc')}</Dropdown.Item>
                         <Dropdown.Item onClick={() => {
                             setCritereTri("categorie");
                             setOrdreTri("asc");
-                        }}>Categorie - Asc</Dropdown.Item>
+                        }}>{t('ListeChansons-CategorieAsc')}</Dropdown.Item>
                         <Dropdown.Item onClick={() => {
                             setCritereTri("categorie");
                             setOrdreTri("desc");
-                        }}>Categorie - Desc</Dropdown.Item>
+                        }}>{t('ListeChansons-CategorieDesc')}</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </InputGroup>

@@ -9,12 +9,13 @@ import { PageClient } from "./pages/PageClient";
 import { PageCreer } from "./pages/PageCreer";
 import { PageDemandeSpecial } from "./pages/PageDemandeSpecial";
 import { PageModifier } from "./pages/PageModifier";
-
+import Langages from "./composants/Langages";
 
 function App() {
     return (
         <BrowserRouter>
             <Container>
+                <Langages/>
                 <BarreNavigation/>
                 <Routes>
                     <Route path="/" element={<PageAccueil/>}/>

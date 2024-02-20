@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Form, ListGroup} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 export const DemandesSpeciales = ({chansonsDemandees, viderDemandesSpeciales}) => {
+    const { t } = useTranslation();
     const [nom, setNom] = useState('');
 
     const envoyerDemandes = async () => {
@@ -41,12 +43,12 @@ export const DemandesSpeciales = ({chansonsDemandees, viderDemandesSpeciales}) =
     return (
         <div>
             <br/>
-            <h3>Ma Demandes Speciales</h3>
+            <h3>{t('DemandesSpecials-Titre')}</h3>
             <Form.Group>
-                <Form.Label>Votre nom</Form.Label>
+                <Form.Label>{t('DemandesSpecials-Nom')}</Form.Label>
                 <Form.Control
                     type="text"
-                    placeholder="Entrez votre nom"
+                    placeholder={t('DemandesSpecials-NomPlaceholder')}
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
                 />
@@ -63,7 +65,7 @@ export const DemandesSpeciales = ({chansonsDemandees, viderDemandesSpeciales}) =
                 onClick={envoyerDemandes}
                 disabled={chansonsDemandees.length === 0 || !nom}
             >
-                Envoyer Demandes
+                {t('DemandesSpecials-Envoyer')}
             </Button>
         </div>
     );

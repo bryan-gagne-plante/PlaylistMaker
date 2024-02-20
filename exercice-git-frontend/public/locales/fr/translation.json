@@ -1,0 +1,14 @@
+{
+  "DemandesSpecials-Titre": "Special Requests",
+  "DemandesSpecials-Nom": "Name",
+  "DemandesSpecials-NomPlaceholder": "Enter your name", 
+  "DemandesSpecials-Envoyer": "Send",
+  "ListeCategories-Titre": "Categories",
+  "ListeChansons-Trier": "Sort",
+  "ListeChansons-TitreAsc": "Title Asc",
+  "ListeChansons-TitreDesc": "Title Desc",
+  "ListeChansons-ArtisteAsc": "Artist Asc",
+  "ListeChansons-ArtisteDesc": "Artist Desc",
+  "ListeChansons-CategorieAsc": "Category Asc",
+  "ListeChansons-CategorieDesc": "Category Desc"
+}

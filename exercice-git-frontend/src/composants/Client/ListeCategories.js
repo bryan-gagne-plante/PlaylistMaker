@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export const ListeCategories = ({setCategorieSelectionnee, categorieSelectionnee}) => {
+    const {t} = useTranslation();
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -37,7 +39,7 @@ export const ListeCategories = ({setCategorieSelectionnee, categorieSelectionnee
     return (
         <>
             <br/>
-            <h3>Liste des categories disponible</h3>
+            <h3>{t('ListeCategories-Titre')}</h3>
             <div style={{display: "flex", flexWrap: "wrap", gap: "10px"}}>
                 {categories.map((categorie) => (
                     <div
