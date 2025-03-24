@@ -1,68 +1,41 @@
-# Creation d'un site permettant à un musicien d’afficher et de gérer la liste des pièces qu’il peut jouer. #  
-  
-## Features ##  
-  
-**Administrateur  - Consulter les donnees de mon repertoire**  
-FE :  
-/admin : Zac 3 h  
-BE :  
-GET /api/pieces : Thomas 1h  
-  
-**Administrateur  - Cree une piece en lui specifiant un titre un artiste et une categorie**  
-FE :  
-/ajouter : Zac 3 h  
-router : Bryan 2h  
-BE :  
-POST /api/pieces/ajouter : Thomas 2h  
-  
-**Administrateur  - Modifier les donnees d'une piece existante**  
-FE :  
-/modifier/:id : Bryan 2h  
-BE :  
-GET /api/pieces/:id : Thomas 1h  
-PUT /api/pieces/:id/modifier : Thomas 2h  
-  
-**Administrateur  - Retirer une pieces de mon repertoire**  
-FE :  
-/supprimer/:id : Bryan  1h  
-BE :  
-DELETE /api/pieces/:id/supprimer : Thomas 2h  
-  
-**Client  - Consulter les donnees du repertoire**  
-FE :  
-/repertoire : 1h Bryan  
-  
-**CLIENT - ADMIN - Page d'acceuil**  
-FE :  
-/ : Bryan 1h  
-  
-## TOTAL ##  
-  
-ZAC : 7 h  
-BRYAN : 7 h  
-THOMAS : 7 h  
-  
-## SPRINTS ##  
-  
-**SPRINT 1 -**  
-/ Repertoire  
-/Admin (Bouttons Non Fonctionnel)  
-/ Page Acceuil  
-GET /api/pieces : retourne la liste de toutes les pièces  
-GET /api/pieces/:id : retourne les informations pour une pièce  
-  
-**SPRINT 2 -**  
-/Admin (Boutton Modifier)  
-router  
-/modifier/:id  
-  
-PUT /api/pieces/:id/modifier : envoie les informations pour modifier une pièce existante  
-  
-**SPRINT 3 -**  
-/Admin (Boutton Supprimer)  
-/ajouter  
-/supprimer/:id  
-navbar  
-  
-POST /api/pieces/ajouter (Bryan Full Stack Last Sprint)  
-DELETE /api/pieces/:id/supprimer : supprime une pièce du répertoire  
+# Playlist Maker 🎵
+
+**Playlist Maker** is a portfolio project showcasing a web application that allows users to create and manage music playlists using multiple filters. With an intuitive interface and a robust backend, it provides a seamless experience for exploring and curating your favorite tracks.
+
+## 🚀 Features
+
+- **Multiple Filters:** Search and filter music using criteria like genre, artist, album, or custom tags.  
+- **Playlist Management:** Manually create and customize playlists with your selected tracks.  
+- **Multi-Language Support:** Supports multiple languages using **i18n**.  
+- **Responsive UI:** Built with **React** for a smooth, mobile-friendly experience.  
+- **Efficient Backend:** Powered by **Next.js** with API routes.  
+- **Database Management:** Tracks and playlists are stored using **MongoDB**.  
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend:** React, Bootstrap  
+- **Backend:** Next.js  
+- **Database:** MongoDB  
+- **Localization:** i18n  
+
+---
+
+## 📘 Usage
+
+1. **Filter Music:** Browse or search for songs using multiple filter options.  
+2. **Create Playlists:** Select tracks and add them to your playlists.  
+3. **Manage Playlists:** Easily manage, edit, and delete playlists.  
+4. **Change Language:** Use the language switcher for a localized experience with i18n.  
+
+---
+
+## 📬 Contact
+
+For inquiries or feedback, feel free to reach out at:  
+**[bryan.gagne.plante@gmail.com](mailto:bryan.gagne.plante@gmail.com)**  
+
+---
+
+Happy playlist making! 🎧  
